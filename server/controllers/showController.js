@@ -6,21 +6,19 @@ import Show from "../models/Show.js";
 
 export const getNowPlayingMovies = async (req, res) => {
   try {
+    console.log("TRY, NOW PLAYING");
     const { data } = await axios.get(
       "https://api.themoviedb.org/3/movie/now_playing",
       {
-        headers: {
-          Authorization: `Bearer ${process.env.TMDB_API_KEY}`,
-        },
+        headers: { Authorization: `Bearer ${process.env.TMDB_API_KEY}` },
       }
     );
 
     const movies = data.results;
-
-    res.json({ sucess: true, movies });
+    res.json({ success: true, movies: movies });
   } catch (error) {
     console.error(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
@@ -83,10 +81,10 @@ export const addShow = async (req, res) => {
       await Show.insertMany(showsToCreate);
     }
 
-    res.json({ sucess: true, message: "Show Added Successfully!" });
+    res.json({ success: true, message: "Show Added Successfully!" });
   } catch (error) {
     console.error(error);
-    res.json({ sucess: false, message: error.message });
+    res.json({ success: false, message: error.message });
   }
 };
 
