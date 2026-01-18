@@ -42,7 +42,7 @@ export const addFavorite = async (req, res) => {
       privateMetadata: user.privateMetadata,
     });
 
-    res.json({ sucess: true, message: "Favorite added successfully" });
+    res.json({ success: true, message: "Favorite added successfully" });
   } catch (error) {
     console.error(error.message);
     res.json({ success: false, message: error.message });
@@ -60,11 +60,12 @@ export const updateFavorite = async (req, res) => {
     if (!user.privateMetadata.favorites) {
       user.privateMetadata.favorites = [];
     }
-    if (!user.privateMetadata.favorites.inclues(movieId)) {
+
+    if (!user.privateMetadata.favorites.includes(movieId)) {
       user.privateMetadata.favorites.push(movieId);
     } else {
       user.privateMetadata.favorites = user.privateMetadata.favorites.filter(
-        (item) => item !== movieId
+        (item) => item !== movieId,
       );
     }
 
@@ -72,7 +73,7 @@ export const updateFavorite = async (req, res) => {
       privateMetadata: user.privateMetadata,
     });
 
-    res.json({ sucess: true, message: "Favorite movies updated" });
+    res.json({ success: true, message: "Favorite movies updated" });
   } catch (error) {
     console.error(error.message);
     res.json({ success: false, message: error.message });
